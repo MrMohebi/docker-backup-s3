@@ -5,6 +5,7 @@ set -e
 : ${HOST_BASE:?"HOST_BASE env variable is required"}
 : ${S3_PATH:?"S3_PATH env variable is required"}
 
+FOLDER_NAME=${FOLDER_NAME:-backup}
 HOST_BUCKET=${HOST_BUCKET:-"$HOST_BASE"}
 export DATA_PATH=${DATA_PATH:-/data/}
 CRON_SCHEDULE=${CRON_SCHEDULE:-0 1 * * *}
@@ -34,6 +35,7 @@ else
     CRON_ENV="PARAMS='$PARAMS'"
     CRON_ENV="$CRON_ENV\nDATA_PATH='$DATA_PATH'"
     CRON_ENV="$CRON_ENV\nS3_PATH='$S3_PATH'"
+    CRON_ENV="$CRON_ENV\nFOLDER_NAME='$FOLDER_NAME'"
     echo -e "$CRON_ENV\n$CRON_SCHEDULE /sync.sh > $LOGFIFO 2>&1" | crontab -
     crontab -l
     cron
