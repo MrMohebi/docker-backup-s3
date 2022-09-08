@@ -2,7 +2,13 @@
 
 set -e
 
+: ${HOST_BASE:?"HOST_BASE env variable is required"}
+: ${HOST_BUCKET:?"HOST_BUCKET env variable is required"}
 : ${S3_PATH:?"S3_PATH env variable is required"}
+
+echo "host_base=$HOST_BASE" >> /root/.s3cfg
+echo "host_bucket=$HOST_BUCKET" >> /root/.s3cfg
+
 export DATA_PATH=${DATA_PATH:-/data/}
 CRON_SCHEDULE=${CRON_SCHEDULE:-0 1 * * *}
 
