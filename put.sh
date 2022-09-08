@@ -5,7 +5,7 @@ set -e
 echo "Job started: $(date)"
 
 NOW=$(date +"%d-%m-%Y-%T%:z")
-BACKUP_FOLDER = "$FOLDER_NAME-$NOW"
+BACKUP_FOLDER="$FOLDER_NAME-$NOW"
 mkdir "$BACKUP_FOLDER"
 
 readarray -td, DATA_PATH_ARR <<<"$DATA_PATH"; declare -p DATA_PATH_ARR;
