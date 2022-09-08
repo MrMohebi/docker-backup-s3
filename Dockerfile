@@ -18,5 +18,8 @@ RUN chmod +x /sync.sh
 ADD get.sh /get.sh
 RUN chmod +x /get.sh
 
+ADD put.sh /put.sh
+RUN chmod +x /put.sh
+
 ENTRYPOINT ["/start.sh"]
 CMD [""]
