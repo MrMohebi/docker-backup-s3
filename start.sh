@@ -5,7 +5,7 @@ set -e
 : ${HOST_BASE:?"HOST_BASE env variable is required"}
 : ${S3_PATH:?"S3_PATH env variable is required"}
 
-HOST_BUCKET=${HOST_BUCKET:-HOST_BASE}
+HOST_BUCKET=${HOST_BUCKET:-"$HOST_BASE"}
 export DATA_PATH=${DATA_PATH:-/data/}
 CRON_SCHEDULE=${CRON_SCHEDULE:-0 1 * * *}
 
