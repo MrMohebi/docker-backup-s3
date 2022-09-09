@@ -9,7 +9,7 @@ Docker container that periodically backups files to Amazon S3 using [s3cmd sync]
 
 ### Usage
 
-    docker run -d [OPTIONS] istepanov/backup-to-s3
+    docker run -d [OPTIONS] mmmohebi/s3-backup
 
 ### Parameters:
 
@@ -59,7 +59,7 @@ Run upload to S3 everyday at 12:00pm:
         -e S3_PATH=s3://my-bucket/backup/ \
         -e 'CRON_SCHEDULE=0 12 * * *' \
         -v /home/user/data:/data:ro \
-        istepanov/backup-to-s3
+        mmmohebi/s3-backup
 
 Run once then delete the container:
 
@@ -69,7 +69,7 @@ Run once then delete the container:
         -e HOST_BASE=https://endpoint.com \
         -e S3_PATH=s3://my-bucket/backup/ \
         -v /home/user/data:/data:ro \
-        istepanov/backup-to-s3 no-cron
+        mmmohebi/s3-backup no-cron
 
 Run once to get from S3 then delete the container:
 
@@ -79,7 +79,7 @@ Run once to get from S3 then delete the container:
         -e HOST_BASE=https://endpoint.com \
         -e S3_PATH=s3://my-bucket/backup/ \
         -v /home/user/data:/data:rw \
-        istepanov/backup-to-s3 get
+        mmmohebi/s3-backup get
 
 Run once to delete from s3 then delete the container:
 
@@ -88,6 +88,6 @@ Run once to delete from s3 then delete the container:
         -e SECRET_KEY=mysecret \
         -e HOST_BASE=https://endpoint.com \
         -e S3_PATH=s3://my-bucket/backup/ \
-        istepanov/backup-to-s3 delete
+        mmmohebi/s3-backup delete
 
 Security considerations: on restore, this opens up permissions on the restored files widely.
