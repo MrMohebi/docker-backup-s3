@@ -33,22 +33,22 @@ Docker container that periodically backups files to Amazon S3 using [s3cmd sync]
 Docker-compose upload multiple files to S3 every 6 hours:
 
     version: '3.8'
-        services:
-            s3-backup:
-                image: mmmohebi/s3-backup
-                container_name: s3-backup
-                restart: always
-                volumes:
-                    - ./file1.txt:/file1.txt:ro
-                    - ./dir1:/dir1:ro
-                environment:
-                    - ACCESS_KEY=myaccesskey
-                    - SECRET_KEY=mysecret
-                    - HOST_BASE=https://s3.host.com
-                    - S3_PATH=s3://my-bucket/backup/
-                    - FOLDER_NAME=custom_prefix_name
-                    - DATA_PATH=/file1.txt,/dir1
-                    - CRON_SCHEDULE=0 */6 * * *
+    services:
+        s3-backup:
+            image: mmmohebi/s3-backup
+            container_name: s3-backup
+            restart: always
+            volumes:
+                - ./file1.txt:/file1.txt:ro
+                - ./dir1:/dir1:ro
+            environment:
+                - ACCESS_KEY=myaccesskey
+                - SECRET_KEY=mysecret
+                - HOST_BASE=https://s3.host.com
+                - S3_PATH=s3://my-bucket/backup/
+                - FOLDER_NAME=custom_prefix_name
+                - DATA_PATH=/file1.txt,/dir1
+                - CRON_SCHEDULE=0 */6 * * *
 
 Run upload to S3 everyday at 12:00pm:
 
