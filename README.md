@@ -31,11 +31,31 @@ Docker container that periodically backups files to Amazon S3 using [s3cmd sync]
 
 ### Examples:
 
+Docker-compose upload multiple files to S3 every 6 hours:
+
+    version: '3.8'
+        services:
+            php:
+                build: .
+                container_name: ttt-s3
+                restart: always
+                volumes:
+                    - ./file1.txt:/file1.txt:ro
+                    - ./dir1:/dir1:ro
+                environment:
+                    - ACCESS_KEY=myaccesskey
+                    - SECRET_KEY=mysecret
+                    - HOST_BASE=https://s3.host.com
+                    - S3_PATH=s3://my-bucket/backup/
+                    - FOLDER_NAME=custom_prefix_name
+                    - DATA_PATH=/file1.txt,/dir1
+                    - CRON_SCHEDULE=0 */6 * * *
+
 Run upload to S3 everyday at 12:00pm:
 
     docker run -d \
-        -e ACCESS_KEY=myawskey \
-        -e SECRET_KEY=myawssecret \
+        -e ACCESS_KEY=myaccesskey \
+        -e SECRET_KEY=mysecret \
         -e HOST_BASE=https://endpoint.com \
         -e S3_PATH=s3://my-bucket/backup/ \
         -e 'CRON_SCHEDULE=0 12 * * *' \
@@ -45,8 +65,8 @@ Run upload to S3 everyday at 12:00pm:
 Run once then delete the container:
 
     docker run --rm \
-        -e ACCESS_KEY=myawskey \
-        -e SECRET_KEY=myawssecret \
+        -e ACCESS_KEY=myaccesskey \
+        -e SECRET_KEY=mysecret \
         -e HOST_BASE=https://endpoint.com \
         -e S3_PATH=s3://my-bucket/backup/ \
         -v /home/user/data:/data:ro \
@@ -55,8 +75,8 @@ Run once then delete the container:
 Run once to get from S3 then delete the container:
 
     docker run --rm \
-        -e ACCESS_KEY=myawskey \
-        -e SECRET_KEY=myawssecret \
+        -e ACCESS_KEY=myaccesskey \
+        -e SECRET_KEY=mysecret \
         -e HOST_BASE=https://endpoint.com \
         -e S3_PATH=s3://my-bucket/backup/ \
         -v /home/user/data:/data:rw \
@@ -65,8 +85,8 @@ Run once to get from S3 then delete the container:
 Run once to delete from s3 then delete the container:
 
     docker run --rm \
-        -e ACCESS_KEY=myawskey \
-        -e SECRET_KEY=myawssecret \
+        -e ACCESS_KEY=myaccesskey \
+        -e SECRET_KEY=mysecret \
         -e HOST_BASE=https://endpoint.com \
         -e S3_PATH=s3://my-bucket/backup/ \
         istepanov/backup-to-s3 delete
