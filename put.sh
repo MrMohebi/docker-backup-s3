@@ -4,7 +4,7 @@ set -e
 
 echo "Job started: $(date)"
 
-NOW=$(date +"%d-%m-%Y-%T%:z")
+NOW=$(date +"%d-%m-%Y-%H%M%S%z")
 BACKUP_FOLDER="$FOLDER_NAME-$NOW"
 mkdir "$BACKUP_FOLDER"
 
