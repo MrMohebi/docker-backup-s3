@@ -15,8 +15,11 @@ for i in ${DATA_PATH_ARR[@]}; do
   cp -r "$i" "$BACKUP_FOLDER"
 done
 
-ls -la $BACKUP_FOLDER
+TAR_FILE_NAME="$BACKUP_FOLDER.tar.gz"
+tar -czvf $TAR_FILE_NAME $BACKUP_FOLDER
 
-/usr/local/bin/s3cmd put --recursive $PARAMS $BACKUP_FOLDER $S3_PATH
+/usr/local/bin/s3cmd put --recursive $PARAMS $TAR_FILE_NAME $S3_PATH
+
+rm $TAR_FILE_NAME
 
 echo "Job finished: $(date)"
