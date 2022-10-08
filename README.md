@@ -25,6 +25,7 @@ Docker container that periodically backups files to Amazon S3 using [s3cmd sync]
 * `-e FOLDER_NAME=<NAME>`: base folder name that all DATA_PATH will be copied to. time will be appended (time format:08-09-2022-12:12:38+01:30)
 * `-e PARAMS="--dry-run"`: parameters to pass to the sync command ([full list here](http://s3tools.org/usage)).
 * `-e DATA_PATH=/data/`: container's data folder. Default is `/data/`. Should end with trailing slash.
+* `-e MAX_AGE="<DAYS> days"`: maximum days that data should be kept (example: MAX_AGE="7 days"). data those that pass the days, will be ERASED from S3.
 * `-e 'CRON_SCHEDULE=0 1 * * *'`: specifies when cron job starts ([details](http://en.wikipedia.org/wiki/Cron)). Default is `0 1 * * *` (runs every day at 1:00 am).
 * `no-cron`: run container once and exit (no cron scheduling).
 
@@ -39,18 +40,18 @@ Docker-compose upload multiple files to S3 every 6 hours:
             container_name: s3-backup
             restart: always
             volumes:
-                - ./file1.txt:/file1.txt:ro
-                - ./dir1:/dir1:ro
+                - ./file1.txt:/data/file1.txt:ro
+                - ./dir1:/data/dir1:ro
             environment:
                 - ACCESS_KEY=myaccesskey
                 - SECRET_KEY=mysecret
                 - HOST_BASE=https://s3.host.com
                 - S3_PATH=s3://my-bucket/backup/
                 - FOLDER_NAME=custom_prefix_name
-                - DATA_PATH=/file1.txt,/dir1
+                - MAX_AGE="30 days"
                 - CRON_SCHEDULE=0 */6 * * *
 
-Run upload to S3 everyday at 12:00pm:
+Run upload to S3 every day at 12:00pm:
 
     docker run -d \
         -e ACCESS_KEY=myaccesskey \

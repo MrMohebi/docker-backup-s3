@@ -2,8 +2,8 @@
 
 set -e
 
-: ${HOST_BASE:?"HOST_BASE env variable is required"}
-: ${S3_PATH:?"S3_PATH env variable is required"}
+: "${HOST_BASE:?"HOST_BASE env variable is required"}"
+: "${S3_PATH:?"S3_PATH env variable is required"}"
 
 FOLDER_NAME=${FOLDER_NAME:-backup}
 HOST_BUCKET=${HOST_BUCKET:-"$HOST_BASE"}
@@ -34,6 +34,7 @@ else
     fi
     CRON_ENV="PARAMS='$PARAMS'"
     CRON_ENV="$CRON_ENV\nDATA_PATH='$DATA_PATH'"
+    CRON_ENV="$CRON_ENV\nMAX_AGE='$MAX_AGE'"
     CRON_ENV="$CRON_ENV\nS3_PATH='$S3_PATH'"
     CRON_ENV="$CRON_ENV\nFOLDER_NAME='$FOLDER_NAME'"
     echo -e "$CRON_ENV\n$CRON_SCHEDULE /put.sh > $LOGFIFO 2>&1" | crontab -
