@@ -92,3 +92,9 @@ Run once to delete from s3 then delete the container:
         mmmohebi/s3-backup delete
 
 Security considerations: on restore, this opens up permissions on the restored files widely.
+
+
+
+## Todo:
+- [ ] remove previouse files in container
+
