@@ -96,5 +96,5 @@ Security considerations: on restore, this opens up permissions on the restored f
 
 
 ## Todo:
-- [x] remove previouse files in container
+- [x] remove previous files in container
 
