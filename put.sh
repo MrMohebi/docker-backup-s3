@@ -10,7 +10,7 @@ mkdir "$BACKUP_FOLDER"
 
 cp -a "$DATA_PATH". "$BACKUP_FOLDER"
 
-TAR_FILE="./${BACKUP_FOLDER}.tar.gz"
+TAR_FILE="./${BACKUP_FOLDER}/${BACKUP_FOLDER}.tar.gz"
 tar -czvf "$TAR_FILE" "$BACKUP_FOLDER"
 
 /usr/local/bin/s3cmd put --recursive "$PARAMS" "$TAR_FILE" "$S3_PATH"
@@ -33,6 +33,6 @@ if [ -n "$MAX_AGE" ] ; then
                        done;
 fi
 
-rm "$TAR_FILE"
+rm -rf "$BACKUP_FOLDER"
 
 echo "Job finished: $(date)"
