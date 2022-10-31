@@ -4,13 +4,15 @@ set -e
 
 echo "Job started: $(date)"
 
+cd /root
+
 NOW=$(date +"%d-%m-%Y-%H%M%S%z")
 BACKUP_FOLDER="$FOLDER_NAME-$NOW"
 mkdir "$BACKUP_FOLDER"
 
 cp -a "$DATA_PATH". "$BACKUP_FOLDER"
 
-TAR_FILE="./${BACKUP_FOLDER}/${BACKUP_FOLDER}.tar.gz"
+TAR_FILE="${BACKUP_FOLDER}.tar.gz"
 tar -czvf "$TAR_FILE" "$BACKUP_FOLDER"
 
 /usr/local/bin/s3cmd put --recursive "$PARAMS" "$TAR_FILE" "$S3_PATH"
@@ -33,6 +35,10 @@ if [ -n "$MAX_AGE" ] ; then
                        done;
 fi
 
+echo "removing backup folder"
 rm -rf "$BACKUP_FOLDER"
+
+echo "removing backup TAR file"
+rm -rf "$TAR_FILE"
 
 echo "Job finished: $(date)"
