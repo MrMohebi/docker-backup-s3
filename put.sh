@@ -35,10 +35,14 @@ if [ -n "$MAX_AGE" ] ; then
                        done;
 fi
 
-echo "removing backup folder"
+echo "current directory: $(pwd)"
+
+ls -la
+
+echo "removing backup folder in: $BACKUP_FOLDER"
 rm -rf "$BACKUP_FOLDER"
 
-echo "removing backup TAR file"
+echo "removing backup TAR file in: $TAR_FILE"
 rm -rf "$TAR_FILE"
 
 echo "Job finished: $(date)"
